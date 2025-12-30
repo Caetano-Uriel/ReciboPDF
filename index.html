@@ -3,83 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo - INFO PROJEKT</title>
+    <title>Recibo Profissional</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="controles no-print">
-        <button class="btn-add" id="btnAdd"> + Adicionar Item</button>
-        <button class="btn-print" onclick="window.print()">🖨️ Imprimir Recibo</button>
+        <button id="btnAdd"> + Adicionar Linha</button>
+        <button onclick="window.print()">🖨️ Imprimir</button>
     </div>
 
     <div class="folha-a4">
         
-        <header>
-            <div class="logo-placeholder">
-                <img src="info.png" alt="info.png" height="150px">
+        <div class="secao-caixa cabecalho">
+            <div class="logo-area">
+                <img src="info.png" alt="Logo" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
+                <div id="alt-logo" style="display:none; color: #c0392b; font-weight:bold; font-size:12px;">
+                    LOGO
+                </div>
             </div>
-            <div class="empresa-info">
-                <strong>INFO PROJEKT</strong><br>
-                CNPJ: 02.410.966/0001-22<br>
-                Praça Doutor Hélio Rocha Guimarães – Centro<br>
-                E-mail: info.provedor@ipw.com.br<br>
-                <strong>Tel: (33) 3721-1726</strong>
-            </div>
-        </header>
+            
+            <div class="linha-vertical"></div>
+            
+            <div class="info-contato">
+                <p class="endereco-principal">
+                    Praça Doutor Hélio Rocha Guimarães, Centro
+                </p>
+                <p class="cnpj-linha">CNPJ: 02.410.966/0001-22</p>
+                
+                <div class="separador-info"></div>
 
-        <div class="titulo-doc">
-            <h1>RECIBO</h1>
-            <div class="linha-divisoria"></div>
+                <div class="contato-grid">
+                    <span>📞 (33) 3721-1726</span>
+                    <span>✉️ info.provedor@ipw.com.br</span>
+                </div>
+            </div>
         </div>
 
-        <div class="dados-cliente">
-            <div class="linha-input" style="justify-content: flex-end;">
+        <div class="secao-caixa dados-recibo">
+            <div class="titulo-recibo">RECIBO</div>
+            <div class="campo-linha">
                 <label>Data:</label>
-                <input type="date" id="dataAtual" style="width: 140px; border-bottom: 1px solid #000;">
+                <input type="text" id="dataAtual" class="input-longo">
             </div>
-            <div class="linha-input">
-                <label>Nome do Cliente:</label>
-                <input type="text" class="input-linha" placeholder="Digite o nome completo">
+            <div class="campo-linha">
+                <label>Cliente:</label>
+                <input type="text" class="input-longo">
             </div>
-            <div class="linha-input">
+            <div class="campo-linha">
                 <label>Endereço:</label>
-                <input type="text" class="input-linha" placeholder="Digite o endereço completo">
+                <input type="text" class="input-longo">
             </div>
         </div>
 
-        <table id="tabelaItens">
-            <thead>
-                <tr>
-                    <th width="10%">Qtd.</th>
-                    <th width="50%">Descrição do Produto / Serviço</th>
-                    <th width="15%">Valor Unit. (R$)</th>
-                    <th width="20%">Total (R$)</th>
-                    <th width="5%" class="no-print">Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
+        <div class="tabela-container">
+            <table id="tabelaItens">
+                <thead>
+                    <tr>
+                        <th class="col-qtd">QTD</th>
+                        <th class="col-desc">SERVIÇO / PRODUTO</th>
+                        <th class="col-unit">P. UNIT.</th>
+                        <th class="col-total">TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
 
-        <div class="clearfix">
-            <div class="total-area">
-                TOTAL R$ <span id="valorTotalGeral">0,00</span>
+        <div class="secao-caixa secao-pagamento">
+            <label class="titulo-secao">FORMA DE PAGAMENTO:</label>
+            <div class="pagamento-opcoes">
+                <label class="checkbox-box">
+                    <input type="checkbox"><span class="checkmark"></span> Dinheiro
+                </label>
+                <label class="checkbox-box">
+                    <input type="checkbox"><span class="checkmark"></span> Pix
+                </label>
+                <label class="checkbox-box">
+                    <input type="checkbox"><span class="checkmark"></span> Cartão
+                </label>
+                <label class="checkbox-box">
+                    <input type="checkbox"><span class="checkmark"></span> Boleto Bancário
+                </label>
+                <label class="checkbox-box">
+                    <input type="checkbox"><span class="checkmark"></span> Link de Pagamento
+                </label>
             </div>
         </div>
 
-        <div class="pagamento-area">
-            <div class="pagamento-titulo">Forma de Negociação / Pagamento</div>
-            <div class="opcoes-pagamento">
-                <label class="checkbox-custom"><input type="checkbox"> Cartão</label>
-                <label class="checkbox-custom"><input type="checkbox"> Pix</label>
-                <label class="checkbox-custom"><input type="checkbox"> Boleto</label>
-                <label class="checkbox-custom"><input type="checkbox"> Link de Pagamento</label>
-                <label class="checkbox-custom"><input type="checkbox"> Dinheiro</label>
-            </div>
-            <div style="margin-top: 10px;">
-                <label style="font-size: 12px; font-weight: bold;">Observações:</label>
-                <textarea rows="2" class="obs-area" placeholder="Descreva aqui detalhes da negociação ou do pagamento..."></textarea>
+        <div class="secao-caixa negociacao-box">
+            <label class="titulo-secao">DESCRIÇÃO DA NEGOCIAÇÃO / OBSERVAÇÕES:</label>
+            <textarea class="input-negociacao" rows="2" ></textarea>
+        </div>
+
+        <div class="rodape-final">
+            <div class="total-container">
+                <div class="label-total">TOTAL R$</div>
+                <div class="valor-total" id="valorTotalGeral">0,00</div>
             </div>
         </div>
 

@@ -1,370 +1,350 @@
-/* --- VARIÁVEIS E RESET --- */
+/* --- RESET E VARIÁVEIS --- */
 :root {
-    --cor-primaria: #c0392b; /* Vermelho profissional */
-    --cor-secundaria: #a93226; /* Vermelho mais escuro */
-    --cor-borda: #d1d5db;
-    --cor-fundo-tela: #f3f4f6;
-    --cor-papel: #ffffff;
-    --fonte-padrao: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --cor-primaria: #c0392b; /* Vermelho Info Projekt */
+    --cor-texto: #000;
+    --cinza-borda: #ccc;
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: var(--fonte-padrao);
-    background-color: var(--cor-fundo-tela);
-    color: #1f2937;
-    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #e0e0e0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    -webkit-font-smoothing: antialiased;
+    color: var(--cor-texto);
 }
 
-/* --- CONTROLES (BOTÕES - APARECEM SÓ NA TELA) --- */
+/* BOTÕES (TELA) */
 .controles {
     margin-bottom: 15px;
+    padding: 10px;
     background: #fff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     width: 210mm;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    text-align: right;
 }
 
-button {
-    padding: 8px 16px;
+.controles button {
+    padding: 10px 20px;
+    margin-left: 10px;
     cursor: pointer;
+    background-color: var(--cor-primaria);
+    color: white;
     border: none;
     border-radius: 4px;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    font-weight: bold;
 }
 
-.btn-add { background-color: #27ae60; color: white; } /* Verde para adicionar */
-.btn-add:hover { background-color: #219150; transform: translateY(-1px); }
-
-.btn-print { background-color: var(--cor-primaria); color: white; }
-.btn-print:hover { background-color: var(--cor-secundaria); transform: translateY(-1px); }
-
-.btn-remove { 
-    background-color: #e74c3c; 
-    color: white; 
-    padding: 4px 8px; 
-    border-radius: 4px;
-    font-size: 11px;
-}
-.btn-remove:hover { background-color: #c0392b; }
-
-/* --- FOLHA A4 --- */
+/* FOLHA A4 */
 .folha-a4 {
-    background-color: var(--cor-papel);
+    background-color: #fff;
     width: 210mm;
     min-height: 297mm;
-    padding: 15mm; /* Margem ajustada */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    padding: 10mm 15mm;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
     position: relative;
-    border-top: 5px solid var(--cor-primaria);
+    display: block; 
 }
 
-/* --- CABEÇALHO --- */
-header {
+/* CAIXAS PADRÃO */
+.secao-caixa {
+    border: 2px solid var(--cor-primaria);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fff;
+}
+
+/* --- CABEÇALHO MELHORADO --- */
+.cabecalho {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 15px;
+    height: 120px; /* Um pouco mais alto para acomodar bem as infos */
+    align-items: center;
 }
 
-.logo-placeholder {
-    width: 140px;
-    height: 70px;
-    background-color: #f9fafb;
-    border: 1px dashed #9ca3af;
-    border-radius: 4px;
+.logo-area {
+    flex: 0 0 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9ca3af;
-    font-size: 12px;
-    font-weight: 500;
+    text-align: center;
 }
 
-.empresa-info {
-    text-align: right;
-    font-size: 12px;
+.logo-area img {
+    max-width: 100%;
+    max-height: 90px;
+    object-fit: contain;
+}
+
+.linha-vertical {
+    width: 2px;
+    background-color: var(--cor-primaria);
+    height: 80%;
+    margin: 0 25px;
+}
+
+/* Informações de contato reestilizadas */
+.info-contato {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
     line-height: 1.4;
-    color: #4b5563;
+    color: #333;
 }
 
-.empresa-info strong { 
-    font-size: 15px; 
-    color: var(--cor-primaria);
-    display: block;
+.endereco-principal {
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
     margin-bottom: 2px;
 }
 
-/* --- TÍTULO --- */
-.titulo-doc {
-    text-align: center;
-    margin-bottom: 20px;
+.cnpj-linha {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
 }
 
-.titulo-doc h1 {
-    margin: 0;
-    font-size: 22px;
+.separador-info {
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+    margin: 5px 0;
+}
+
+.contato-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-weight: 500;
+}
+
+/* --- DADOS RECIBO --- */
+.dados-recibo {
+    position: relative;
+    padding-top: 25px;
+}
+
+.titulo-recibo {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
     color: var(--cor-primaria);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 700;
 }
 
-.linha-divisoria {
-    height: 3px;
-    width: 40px;
-    background-color: var(--cor-primaria);
-    margin: 5px auto 0;
-    border-radius: 2px;
-}
-
-/* --- INPUTS E FORMULÁRIOS --- */
-.dados-cliente {
-    margin-bottom: 20px;
-    background: #fdf2f2; /* Fundo levemente avermelhado na tela */
-    padding: 15px;
-    border-radius: 4px;
-    border: 1px solid #fecaca;
-}
-
-.linha-input {
-    margin-bottom: 8px;
+.campo-linha {
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
+    margin-bottom: 8px;
 }
 
-.linha-input:last-child { margin-bottom: 0; }
-
-.linha-input label {
+.campo-linha label {
+    margin-right: 8px;
     font-weight: 600;
-    margin-right: 10px;
-    min-width: 70px;
-    color: var(--cor-secundaria);
-    font-size: 13px;
+    color: #444;
+    font-size: 14px;
 }
 
-.input-linha {
+.input-longo {
     flex: 1;
     border: none;
-    border-bottom: 1px dashed var(--cor-borda);
-    padding: 3px 0;
-    font-size: 13px;
-    color: #1f2937;
-    background: transparent;
-    font-family: inherit;
-}
-
-.input-linha:focus {
+    border-bottom: 1px solid #999;
+    font-size: 14px;
+    padding: 2px 5px;
     outline: none;
-    border-bottom: 1px solid var(--cor-primaria);
+    font-family: inherit;
+    color: #000;
 }
 
 /* --- TABELA --- */
+.tabela-container {
+    margin-bottom: 20px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 12px;
 }
 
 th {
     background-color: var(--cor-primaria);
-    color: white;
-    padding: 8px 5px;
-    text-transform: uppercase;
-    font-size: 11px;
+    color: #fff;
+    padding: 6px;
+    text-align: center;
     border: 1px solid var(--cor-primaria);
+    font-size: 13px;
+    text-transform: uppercase;
 }
 
 td {
-    border: 1px solid #e5e7eb;
-    padding: 5px;
-    vertical-align: middle;
+    border: 1px solid var(--cinza-borda);
+    border-left: 1px solid var(--cor-primaria);
+    border-right: 1px solid var(--cor-primaria);
+    padding: 4px;
+    height: 24px;
 }
 
 td input {
     width: 100%;
     border: none;
     outline: none;
-    font-size: 12px;
-    font-family: inherit;
-    padding: 2px;
-    color: #1f2937;
     background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    text-align: center;
+}
+td.col-desc input { text-align: left; }
+
+.col-qtd { width: 10%; }
+.col-desc { width: 50%; }
+.col-unit { width: 20%; }
+.col-total { width: 20%; }
+
+table tbody tr:last-child td {
+    border-bottom: 2px solid var(--cor-primaria);
 }
 
-td input:focus {
-    background-color: #fff1f2;
+/* --- SEÇÃO PAGAMENTO --- */
+.secao-pagamento {
+    margin-top: 0;
 }
 
-.col-desc { text-align: left; }
-.col-total input { 
-    font-weight: 700; 
+.titulo-secao {
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
     color: var(--cor-primaria);
-}
-
-/* --- TOTAL --- */
-.total-area {
-    float: right;
-    background-color: var(--cor-primaria);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-/* --- PAGAMENTO --- */
-.pagamento-area {
-    margin-top: 25px;
-    border: 1px solid #e5e7eb;
-    padding: 15px;
-    border-radius: 4px;
-    page-break-inside: avoid;
-}
-
-.pagamento-titulo {
-    font-weight: 700;
-    color: var(--cor-secundaria);
+    margin-bottom: 8px;
     text-transform: uppercase;
-    font-size: 11px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 5px;
 }
 
-.opcoes-pagamento {
+.pagamento-opcoes {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    gap: 10px 20px;
 }
 
-.checkbox-custom {
+.checkbox-box {
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-size: 12px;
-    color: #374151;
+    position: relative;
+    padding-left: 22px;
+    font-weight: 600;
+    font-size: 13px;
 }
 
-.checkbox-custom input {
-    margin-right: 6px;
-    transform: scale(1.1);
+.checkbox-box input {
+    position: absolute;
+    opacity: 0;
     cursor: pointer;
-    accent-color: var(--cor-primaria);
 }
 
-.obs-area {
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: -1px;
+    height: 16px;
+    width: 16px;
+    border: 2px solid var(--cor-primaria);
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.checkbox-box input:checked ~ .checkmark {
+    background-color: var(--cor-primaria);
+}
+
+/* --- SEÇÃO NEGOCIAÇÃO --- */
+.input-negociacao {
     width: 100%;
-    border: 1px solid #e5e7eb;
-    background-color: #f9fafb;
-    border-radius: 4px;
-    padding: 8px;
+    border: none;
     resize: none;
-    outline: none;
     font-family: inherit;
-    font-size: 12px;
-    color: #374151;
+    font-size: 13px;
+    background: transparent;
+    border-bottom: 1px dotted #ccc;
+    outline: none;
 }
 
-/* --- CONFIGURAÇÕES ESPECIAIS DE IMPRESSÃO --- */
+/* --- TOTAL (RODAPÉ) --- */
+.rodape-final {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.total-container {
+    display: flex;
+    border: 2px solid var(--cor-primaria);
+    height: 40px;
+    width: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.label-total {
+    background-color: var(--cor-primaria);
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    font-size: 16px;
+    flex: 0 0 auto;
+}
+
+.valor-total {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+}
+
+/* --- IMPRESSÃO --- */
 @media print {
-    /* 1. Remove cabeçalhos e rodapés automáticos do navegador */
     @page {
         size: A4;
-        margin: 0; 
-    }
-
-    /* 2. Reseta o corpo da página para impressão */
-    body {
-        background: none;
-        padding: 0;
         margin: 0;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        width: 100%;
-        height: 100%;
     }
-
-    /* 3. Esconde classes e botões marcados */
-    .no-print, .controles, .btn-remove {
-        display: none !important;
-    }
-
-    /* 4. Configura a folha para ocupar exatamente o papel */
+    body { margin: 0; padding: 0; background: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .no-print, .controles { display: none !important; }
+    
     .folha-a4 {
-        width: 210mm;
-        min-height: 297mm;
-        height: auto;
-        box-shadow: none;
+        width: 100%;
         margin: 0;
-        padding: 15mm; /* Margem interna da impressão */
-        border: none;
-        page-break-after: avoid;
-    }
-
-    /* 5. Estilização para economia de tinta e clareza */
-    .dados-cliente {
-        background-color: transparent !important;
-        border: none;
-        padding: 0;
-        margin-bottom: 15px;
-    }
-    
-    .input-linha {
-        border-bottom: 1px solid #000;
-    }
-
-    th {
-        background-color: #e5e5e5 !important;
-        color: black !important;
-        border: 1px solid #000;
-    }
-    
-    td { border: 1px solid #000; }
-
-    .total-area {
-        background-color: transparent !important;
-        color: black !important;
-        border: 2px solid #000;
+        padding: 10mm;
         box-shadow: none;
+        border: none;
+        height: auto;
+        min-height: 297mm;
     }
     
-    textarea {
-        border: 1px solid #999;
+    th, .label-total, .checkbox-box input:checked ~ .checkmark {
+        background-color: var(--cor-primaria) !important;
+        color: white !important;
     }
-
-    /* 6. Correção dos Checkboxes */
-    .checkbox-custom input {
-        appearance: checkbox;
-        -webkit-appearance: checkbox;
-        box-shadow: none;
-    }
+    
+    .input-negociacao { border-bottom: 1px solid #000; }
 }
