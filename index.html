@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo - INFO PROJEKT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="controles no-print">
+        <button class="btn-add" id="btnAdd"> + Adicionar Item</button>
+        <button class="btn-print" onclick="window.print()">🖨️ Imprimir Recibo</button>
+    </div>
+
+    <div class="folha-a4">
+        
+        <header>
+            <div class="logo-placeholder">
+                <img src="info.png" alt="info.png" height="150px">
+            </div>
+            <div class="empresa-info">
+                <strong>INFO PROJEKT</strong><br>
+                CNPJ: 02.410.966/0001-22<br>
+                Praça Doutor Hélio Rocha Guimarães – Centro<br>
+                E-mail: info.provedor@ipw.com.br<br>
+                <strong>Tel: (33) 3721-1726</strong>
+            </div>
+        </header>
+
+        <div class="titulo-doc">
+            <h1>RECIBO</h1>
+            <div class="linha-divisoria"></div>
+        </div>
+
+        <div class="dados-cliente">
+            <div class="linha-input" style="justify-content: flex-end;">
+                <label>Data:</label>
+                <input type="date" id="dataAtual" style="width: 140px; border-bottom: 1px solid #000;">
+            </div>
+            <div class="linha-input">
+                <label>Nome do Cliente:</label>
+                <input type="text" class="input-linha" placeholder="Digite o nome completo">
+            </div>
+            <div class="linha-input">
+                <label>Endereço:</label>
+                <input type="text" class="input-linha" placeholder="Digite o endereço completo">
+            </div>
+        </div>
+
+        <table id="tabelaItens">
+            <thead>
+                <tr>
+                    <th width="10%">Qtd.</th>
+                    <th width="50%">Descrição do Produto / Serviço</th>
+                    <th width="15%">Valor Unit. (R$)</th>
+                    <th width="20%">Total (R$)</th>
+                    <th width="5%" class="no-print">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+
+        <div class="clearfix">
+            <div class="total-area">
+                TOTAL R$ <span id="valorTotalGeral">0,00</span>
+            </div>
+        </div>
+
+        <div class="pagamento-area">
+            <div class="pagamento-titulo">Forma de Negociação / Pagamento</div>
+            <div class="opcoes-pagamento">
+                <label class="checkbox-custom"><input type="checkbox"> Cartão</label>
+                <label class="checkbox-custom"><input type="checkbox"> Pix</label>
+                <label class="checkbox-custom"><input type="checkbox"> Boleto</label>
+                <label class="checkbox-custom"><input type="checkbox"> Link de Pagamento</label>
+                <label class="checkbox-custom"><input type="checkbox"> Dinheiro</label>
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="font-size: 12px; font-weight: bold;">Observações:</label>
+                <textarea rows="2" class="obs-area" placeholder="Descreva aqui detalhes da negociação ou do pagamento..."></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
