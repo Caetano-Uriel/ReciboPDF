@@ -186,7 +186,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* Ajuda na quebra de linha */
+    table-layout: fixed;
 }
 
 th {
@@ -201,29 +201,29 @@ th {
 
 td {
     border: 1px solid var(--cinza-borda);
-    border-left: 1px solid var(--cor-primaria);
-    border-right: 1px solid var(--cor-primaria);
+    border-left: 2px solid var(--cor-primaria);
+    border-right: 2px solid var(--cor-primaria);
     padding: 4px;
     min-height: 28px;
     vertical-align: top;
     height: auto;
 }
 
-/* CAMPOS EDITÁVEIS NA TABELA (DIVS) */
+/* CÉLULAS EDITÁVEIS (DIV) */
 .celula-editavel {
     width: 100%;
     min-height: 18px;
     outline: none;
     font-family: inherit;
     font-size: 13px;
-    white-space: pre-wrap; /* Mantém quebras de linha */
-    word-wrap: break-word; /* Quebra palavras longas */
+    white-space: pre-wrap;
+    word-wrap: break-word;
     overflow: visible;
     text-align: left;
     display: block;
 }
 
-/* Campos numéricos continuam sendo input para cálculo fácil */
+/* INPUTS NUMÉRICOS */
 td input {
     width: 100%;
     border: none;
@@ -253,7 +253,7 @@ td.col-desc { text-align: left; }
 td.col-qtd input { text-align: center; }
 
 .col-qtd { width: 10%; }
-.col-desc { width: 50%; } /* Descrição ganha mais espaço */
+.col-desc { width: 50%; }
 .col-unit { width: 20%; }
 .col-total { width: 20%; }
 
@@ -261,7 +261,7 @@ table tbody tr:last-child td {
     border-bottom: 1px solid var(--cor-primaria);
 }
 
-/* --- SEÇÃO PAGAMENTO --- */
+/* --- PAGAMENTO --- */
 .secao-pagamento { margin-top: 0; }
 .titulo-secao {
     display: block;
@@ -288,11 +288,11 @@ table tbody tr:last-child td {
 .checkbox-box input { position: absolute; opacity: 0; cursor: pointer; }
 .checkmark {
     position: absolute; left: 0; top: -1px; height: 16px; width: 16px;
-    border: 2px solid var(--cor-primaria); background-color: #fff; border-radius: 3px;
+    border: 1px solid var(--cor-primaria); background-color: #fff; border-radius: 3px;
 }
 .checkbox-box input:checked ~ .checkmark { background-color: var(--cor-primaria); }
 
-/* --- NEGOCIAÇÃO (DIV EDITÁVEL) --- */
+/* --- NEGOCIAÇÃO (DIV) --- */
 .input-negociacao-div {
     width: 100%;
     border: none;
@@ -301,23 +301,22 @@ table tbody tr:last-child td {
     background: transparent;
     border-bottom: 1px dotted #ccc;
     outline: none;
-    min-height: 40px; /* Altura mínima inicial */
-    white-space: pre-wrap; /* Permite enter e quebra de linha */
+    min-height: 40px;
+    white-space: pre-wrap;
     word-wrap: break-word;
     display: block;
     overflow: visible;
 }
-/* Placeholder falso com CSS vazio */
 .input-negociacao-div:empty:before {
     content: "Ex: Entrada de R$ 50,00 + restante em 2x...";
     color: #999;
     display: block; 
 }
 
-/* --- TOTAL E RODAPÉ --- */
+/* --- TOTAL --- */
 .rodape-final { display: flex; justify-content: flex-end; margin-top: 20px; }
 .total-container {
-    display: flex; border: 2px solid var(--cor-primaria); height: 40px; width: 250px;
+    display: flex; border: 1px solid var(--cor-primaria); height: 40px; width: 250px;
     border-radius: 8px; overflow: hidden; background: #fff;
 }
 .label-total {
@@ -326,11 +325,6 @@ table tbody tr:last-child td {
 }
 .valor-total {
     flex: 1; display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; font-weight: bold; font-size: 16px; color: #000;
-}
-.assinatura-final { margin-top: 40px; text-align: center; width: 100%; }
-.input-assinatura {
-    width: 100%; border: none; background: transparent; text-align: center;
-    font-family: inherit; font-size: 14px; color: #000; outline: none;
 }
 
 /* --- IMPRESSÃO --- */
@@ -344,7 +338,6 @@ table tbody tr:last-child td {
         box-shadow: none; border: none; height: auto; min-height: 297mm;
     }
     
-    /* Garante que o fundo vermelho saia */
     th, .label-total, .checkbox-box input:checked ~ .checkmark {
         background-color: var(--cor-primaria) !important; color: white !important;
     }
