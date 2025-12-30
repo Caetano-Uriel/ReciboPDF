@@ -1,22 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
     const hoje = new Date();
     
-    // 1. Data Numérica para o campo "Data"
+    // Datas
     const dia = String(hoje.getDate()).padStart(2, '0');
     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
     const ano = hoje.getFullYear();
-    document.getElementById('dataAtual').value = `${dia}/${mes}/${ano}`;
+    document.getElementById('dataAtual').value = `DD/MM/AAAA`;
 
-    // 2. Data por Extenso para o Rodapé (Almenara - MG)
     const meses = [
         "janeiro", "fevereiro", "março", "abril", "maio", "junho", 
         "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
     ];
     const nomeMes = meses[hoje.getMonth()];
     const textoRodape = `Almenara - MG, ${hoje.getDate()} de ${nomeMes} de ${ano}`;
-    document.getElementById('textoCidadeData').innerText = textoRodape;
+    document.getElementById('inputCidadeData').value = textoRodape;
 
-    // 3. Inicializa Tabela e Botões
+    // Início
     adicionarLinha();
     document.getElementById('btnAdd').addEventListener('click', adicionarLinha);
 });
@@ -25,7 +24,7 @@ function adicionarLinha() {
     const tbody = document.getElementById('tabelaItens').getElementsByTagName('tbody')[0];
     const row = tbody.insertRow();
 
-    // QTD
+    // 1. QTD (Input)
     const cellQtd = row.insertCell(0);
     cellQtd.className = 'col-qtd';
     const inputQtd = document.createElement('input');
@@ -33,14 +32,18 @@ function adicionarLinha() {
     inputQtd.addEventListener('input', calcularTotal);
     cellQtd.appendChild(inputQtd);
 
-    // DESC
+    // 2. DESCRIÇÃO (DIV EDITÁVEL - MUDANÇA IMPORTANTE)
     const cellDesc = row.insertCell(1);
     cellDesc.className = 'col-desc';
-    const inputDesc = document.createElement('input');
-    inputDesc.type = 'text';
-    cellDesc.appendChild(inputDesc);
+    
+    // Criamos uma DIV em vez de Input para permitir quebra de linha infinita
+    const divDesc = document.createElement('div');
+    divDesc.className = 'celula-editavel';
+    divDesc.contentEditable = "true";
+    
+    cellDesc.appendChild(divDesc);
 
-    // VALOR (Com R$)
+    // 3. VALOR (Input com R$)
     const cellValor = row.insertCell(2);
     cellValor.className = 'col-unit';
     const wrapperValor = document.createElement('div');
@@ -54,7 +57,7 @@ function adicionarLinha() {
     wrapperValor.appendChild(inputValor);
     cellValor.appendChild(wrapperValor);
 
-    // TOTAL (Com R$)
+    // 4. TOTAL (Input com R$)
     const cellTotal = row.insertCell(3);
     cellTotal.className = 'col-total';
     const wrapperTotal = document.createElement('div');
