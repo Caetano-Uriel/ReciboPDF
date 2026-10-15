@@ -1,0 +1,16 @@
+{
+  "name": "info-projekt-recibos",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Gerador local de recibos de pagamento da Info Projekt",
+  "scripts": {
+    "test": "node --test tests/money.test.cjs",
+    "test:ui": "node tests/ui-checks.cjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "jsdom": "30.1.3"
+  }
+}
