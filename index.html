@@ -1,113 +1,432 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo Info Projekt</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Crie e confira recibos de pagamento da Info Projekt. Preenchimento simples, cálculo automático e impressão em PDF."
+    />
+    <meta name="theme-color" content="#9f2635" />
+    <title>Recibos · Info Projekt</title>
+    <link rel="icon" href="info.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="money.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#cliente">Ir para o preenchimento</a>
+    <aside class="sidebar no-print" aria-label="Identidade da ferramenta">
+      <a class="brand" href="./" aria-label="Info Projekt — início"
+        ><img src="info.png" alt="Info Projekt" width="148" height="92"
+      /></a>
+      <div class="sidebar-label">ESPAÇO DE TRABALHO</div>
+      <div class="nav-active">
+        <span aria-hidden="true">▤</span> Recibos <span class="nav-dot"></span>
+      </div>
+      <div class="sidebar-note">
+        <div class="note-icon" aria-hidden="true">↗</div>
+        <strong>Menos papelada.<br />Mais praticidade.</strong>
+        <p>Do preenchimento ao recibo, tudo em um só lugar.</p>
+      </div>
+      <div class="sidebar-footer">
+        <span class="status-dot"></span> Feito para o seu dia a dia<span
+          class="version"
+          >INFO PROJEKT · RECIBOS</span
+        >
+      </div>
+    </aside>
 
-    <div class="controles no-print">
-        <button id="btnAdd"> + Adicionar Linha</button>
-        <button onclick="window.print()">🖨️ Imprimir</button>
-    </div>
-
-    <div class="folha-a4">
-        
-        <div class="secao-caixa cabecalho">
-            <div class="logo-area">
-                <img src="info.png" alt="Logo" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
-                <div id="alt-logo" style="display:none; color: #c0392b; font-weight:bold; font-size:12px;">
-                    LOGO
-                </div>
-            </div>
-            
-            <div class="linha-vertical"></div>
-            
-            <div class="info-contato">
-                <h1 class="nome-empresa-header">INFO PROJEKT</h1>
-                
-                <p class="endereco-principal">
-                    Praça Doutor Hélio Rocha Guimarães, 101 - Centro
-                </p>
-                <p class="cnpj-linha">CNPJ: 02.410.966/0001-22</p>
-                
-                <div class="separador-info"></div>
-
-                <div class="contato-grid">
-                    <span>📞 (33) 3721-1726</span>
-                    <span>✉️ info.provedor@ipw.com.br</span>
-                </div>
-            </div>
+    <main class="workspace">
+      <header class="topbar no-print">
+        <div class="breadcrumb">
+          Ferramentas <span>/</span> <strong>Recibos</strong>
         </div>
-
-        <div class="secao-caixa dados-recibo">
-            <div class="titulo-recibo"></div>
-            <div class="campo-linha">
-                <label>Data:</label>
-                <input type="text" id="dataAtual" class="input-longo">
-            </div>
-            <div class="campo-linha">
-                <label>Cliente:</label>
-                <input type="text" class="input-longo">
-            </div>
-            <div class="campo-linha">
-                <label>Endereço:</label>
-                <input type="text" class="input-longo">
-            </div>
+        <div class="topbar-right">
+          <span class="local-badge"
+            ><span class="status-dot"></span> Preenchimento local</span
+          ><span class="avatar" aria-hidden="true">IP</span>
         </div>
+      </header>
+      <div class="page-heading no-print">
+        <div>
+          <p class="eyebrow">SIMPLES, DO COMEÇO AO FIM</p>
+          <h1>Um novo recibo.</h1>
+          <p class="subtitle">
+            Preencha os dados. Confira a prévia. Pronto para entregar.
+          </p>
+        </div>
+        <button type="button" class="button button-secondary" id="newReceipt">
+          <span aria-hidden="true">＋</span> Novo recibo
+        </button>
+      </div>
+      <div class="mobile-tabs no-print" role="group" aria-label="Visualização">
+        <button type="button" class="selected" id="editTab" aria-pressed="true">
+          Preencher</button
+        ><button type="button" id="previewTab" aria-pressed="false">
+          Ver recibo
+        </button>
+      </div>
+      <div class="editor-layout">
+        <section class="editor no-print" aria-label="Preenchimento do recibo">
+          <form id="receiptForm" novalidate>
+            <section class="card">
+              <div class="section-heading">
+                <span class="step-number">01</span>
+                <div>
+                  <h2>Dados do recibo</h2>
+                  <p>Quem pagou e quando o pagamento aconteceu.</p>
+                </div>
+              </div>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="date"
+                    >Data do pagamento <span class="required">*</span></label
+                  ><input id="date" name="date" type="date" required /><span
+                    class="field-error"
+                    id="dateError"
+                  ></span>
+                </div>
+                <div class="field">
+                  <label for="reference"
+                    >Referência <span class="optional">opcional</span></label
+                  ><input
+                    id="reference"
+                    name="reference"
+                    maxlength="60"
+                    placeholder="Nº do recibo, OS ou contrato"
+                  /><span class="hint"
+                    >Use a referência do seu controle interno.</span
+                  >
+                </div>
+              </div>
+              <div class="field">
+                <label for="cliente"
+                  >Nome do cliente <span class="required">*</span></label
+                ><input
+                  id="cliente"
+                  name="client"
+                  autocomplete="off"
+                  maxlength="180"
+                  required
+                  placeholder="Nome completo ou razão social"
+                /><span class="field-error" id="clientError"></span>
+              </div>
+              <div class="field">
+                <label for="address"
+                  >Endereço <span class="optional">opcional</span></label
+                ><textarea
+                  id="address"
+                  name="address"
+                  rows="2"
+                  maxlength="300"
+                  placeholder="Rua, número, bairro e cidade"
+                ></textarea>
+              </div>
+            </section>
 
-        <div class="tabela-container">
-            <table id="tabelaItens">
+            <section class="card">
+              <div class="section-heading">
+                <span class="step-number">02</span>
+                <div>
+                  <h2>Serviços e produtos</h2>
+                  <p>Adicione o que está sendo pago.</p>
+                </div>
+                <span class="count-badge" id="itemCount">1 item</span>
+              </div>
+              <div class="items-heading" aria-hidden="true">
+                <span>DESCRIÇÃO</span><span>QTD.</span><span>VALOR UNIT.</span
+                ><span></span>
+              </div>
+              <div id="items"></div>
+              <p class="field-error" id="itemsError" role="status"></p>
+              <datalist id="serviceSuggestions">
+                <option value="Mensalidade de internet"></option>
+                <option value="Taxa de instalação"></option>
+                <option value="Mudança de endereço"></option>
+                <option value="Serviço técnico"></option>
+                <option value="Equipamento"></option>
+                <option value="Pagamento de negociação"></option>
+              </datalist>
+              <button type="button" class="add-item" id="addItem">
+                <span aria-hidden="true">＋</span> Adicionar item
+              </button>
+              <div class="editor-total">
+                <span>Total dos itens</span
+                ><strong id="editorTotal">R$ 0,00</strong>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="section-heading">
+                <span class="step-number">03</span>
+                <div>
+                  <h2>Pagamento</h2>
+                  <p>Registre o valor recebido neste atendimento.</p>
+                </div>
+              </div>
+              <fieldset class="payment-type">
+                <legend class="sr-only">Tipo de pagamento</legend>
+                <label
+                  ><input
+                    type="radio"
+                    name="paymentType"
+                    value="full"
+                    checked
+                  />
+                  <span>Pagamento integral</span></label
+                ><label
+                  ><input type="radio" name="paymentType" value="partial" />
+                  <span>Pagamento parcial</span></label
+                >
+              </fieldset>
+              <div class="field" id="receivedField" hidden>
+                <label for="received"
+                  >Valor recebido <span class="required">*</span></label
+                >
+                <div class="currency-input">
+                  <span>R$</span
+                  ><input
+                    id="received"
+                    name="received"
+                    inputmode="decimal"
+                    maxlength="20"
+                    placeholder="0,00"
+                    aria-describedby="receivedError"
+                  />
+                </div>
+                <span class="field-error" id="receivedError"></span>
+              </div>
+              <div class="field">
+                <label for="paymentMethod"
+                  >Forma de pagamento <span class="required">*</span></label
+                ><select id="paymentMethod" name="paymentMethod" required>
+                  <option value="">Selecione uma forma de pagamento</option>
+                  <option value="Pix">Pix</option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Cartão">Cartão</option>
+                  <option value="Boleto bancário">Boleto bancário</option>
+                  <option value="Link de pagamento">Link de pagamento</option>
+                  <option value="mixed">Pagamento misto</option></select
+                ><span class="field-error" id="methodError"></span>
+              </div>
+              <div id="mixedPayments" hidden>
+                <div class="mixed-header">
+                  <span>Distribua o valor recebido</span
+                  ><button type="button" class="text-button" id="addPayment">
+                    ＋ Outra forma
+                  </button>
+                </div>
+                <div id="paymentRows"></div>
+                <p class="field-error" id="mixedError"></p>
+              </div>
+              <div class="balance-summary" id="balanceSummary" hidden>
+                <span>Saldo após este pagamento</span
+                ><strong id="remainingBalance">R$ 0,00</strong>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="section-heading">
+                <span class="step-number">04</span>
+                <div>
+                  <h2>Observações</h2>
+                  <p>Um detalhe a mais, se precisar.</p>
+                </div>
+                <span class="optional">opcional</span>
+              </div>
+              <label class="sr-only" for="notes">Observações e negociação</label
+              ><textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                maxlength="3000"
+                placeholder="Ex.: pagamento referente à mensalidade de outubro."
+              ></textarea>
+              <div class="field receiver-field">
+                <label for="receiver"
+                  >Recebido por <span class="optional">opcional</span></label
+                ><input
+                  id="receiver"
+                  name="receiver"
+                  maxlength="120"
+                  placeholder="Nome do responsável pelo atendimento"
+                />
+              </div>
+            </section>
+            <div class="draft-option">
+              <label
+                ><input id="saveDraft" type="checkbox" /><span
+                  >Salvar rascunho neste navegador<small
+                    >Ative se este computador for de uso pessoal.</small
+                  ></span
+                ></label
+              ><button
+                class="text-button"
+                type="button"
+                id="forgetDraft"
+                hidden
+              >
+                Apagar rascunho
+              </button>
+            </div>
+            <p
+              id="draftStatus"
+              class="draft-status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
+        </section>
+
+        <section class="preview-panel" aria-label="Prévia do recibo">
+          <div class="preview-toolbar no-print">
+            <div>
+              <span class="preview-dot"></span>
+              <h2>Prévia do recibo</h2>
+            </div>
+            <span>A4 · atualizado ao preencher</span>
+          </div>
+          <div class="paper-wrap">
+            <article
+              class="receipt"
+              id="receipt"
+              aria-label="Documento para impressão"
+            >
+              <div class="print-draft" id="printDraft">
+                RASCUNHO — NÃO EMITIDO
+              </div>
+              <header class="receipt-brand">
+                <img
+                  src="info.png"
+                  alt="Info Projekt"
+                  width="122"
+                  height="76"
+                />
+                <div>
+                  <strong>INFO PROJEKT</strong>
+                  <p>Praça Doutor Hélio Rocha Guimarães, 101 · Centro</p>
+                  <p>CNPJ: 02.410.966/0001-22</p>
+                  <p>(33) 3721-1726 · info.provedor@ipw.com.br</p>
+                </div>
+              </header>
+              <div class="receipt-title">
+                <div>
+                  <p>COMPROVANTE DE RECEBIMENTO</p>
+                  <h2>Recibo de pagamento</h2>
+                </div>
+                <div class="receipt-date">
+                  <span>DATA DO PAGAMENTO</span
+                  ><strong id="previewDate">—</strong>
+                </div>
+              </div>
+              <div class="receipt-reference" id="referenceLine" hidden>
+                Referência: <strong id="previewReference"></strong>
+              </div>
+              <section class="receipt-client">
+                <span class="receipt-label">RECEBEMOS DE</span>
+                <h3 id="previewClient" class="placeholder">Nome do cliente</h3>
+                <p id="previewAddress" hidden></p>
+              </section>
+              <table class="receipt-table">
+                <caption class="sr-only">
+                  Discriminação dos serviços e produtos
+                </caption>
                 <thead>
-                    <tr>
-                        <th class="col-qtd">QTD</th>
-                        <th class="col-desc">SERVIÇO / PRODUTO</th>
-                        <th class="col-unit">P. UNIT.</th>
-                        <th class="col-total">TOTAL</th>
-                    </tr>
+                  <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Qtd.</th>
+                    <th scope="col">Valor unit.</th>
+                    <th scope="col">Total</th>
+                  </tr>
                 </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </div>
-
-        <div class="secao-caixa secao-pagamento">
-            <label class="titulo-secao">FORMA DE PAGAMENTO:</label>
-            <div class="pagamento-opcoes">
-                <label class="checkbox-box">
-                    <input type="checkbox"><span class="checkmark"></span> Dinheiro
-                </label>
-                <label class="checkbox-box">
-                    <input type="checkbox"><span class="checkmark"></span> Pix
-                </label>
-                <label class="checkbox-box">
-                    <input type="checkbox"><span class="checkmark"></span> Cartão
-                </label>
-                <label class="checkbox-box">
-                    <input type="checkbox"><span class="checkmark"></span> Boleto Bancário
-                </label>
-                <label class="checkbox-box">
-                    <input type="checkbox"><span class="checkmark"></span> Link de Pagamento
-                </label>
+                <tbody id="previewItems"></tbody>
+              </table>
+              <div class="receipt-totals">
+                <div class="receipt-subtotal">
+                  <span>Total dos itens</span
+                  ><strong id="previewTotal">R$ 0,00</strong>
+                </div>
+                <div class="receipt-paid">
+                  <span>VALOR RECEBIDO</span
+                  ><strong id="previewReceived">R$ 0,00</strong>
+                </div>
+                <div class="receipt-balance" id="previewBalanceLine" hidden>
+                  <span>Saldo pendente</span
+                  ><strong id="previewBalance">R$ 0,00</strong>
+                </div>
+              </div>
+              <section class="receipt-payment">
+                <span class="receipt-label">FORMA DE PAGAMENTO</span>
+                <p id="previewMethod" class="placeholder">A informar</p>
+                <div id="previewMixed"></div>
+              </section>
+              <section class="receipt-notes" id="previewNotesSection" hidden>
+                <span class="receipt-label">OBSERVAÇÕES</span>
+                <p id="previewNotes"></p>
+              </section>
+              <footer class="receipt-footer">
+                <p id="receiptStatement">
+                  Confira os dados antes de emitir este recibo.
+                </p>
+                <div class="signature">
+                  <span id="previewReceiver">Info Projekt</span
+                  ><small>Responsável pelo recebimento</small>
+                </div>
+                <div class="receipt-footer-line">
+                  <span>INFO PROJEKT</span
+                  ><span>Conectando o seu dia a dia.</span>
+                </div>
+              </footer>
+            </article>
+          </div>
+          <div class="preview-actions no-print">
+            <div class="ready-state" id="readyState">
+              <span aria-hidden="true">○</span>
+              <p>
+                Seu recibo começa aqui.<small
+                  >Preencha os campos para emitir.</small
+                >
+              </p>
             </div>
-        </div>
-
-        <div class="secao-caixa negociacao-box">
-            <label class="titulo-secao">DESCRIÇÃO DA NEGOCIAÇÃO / OBSERVAÇÕES:</label>
-            <div class="input-negociacao-div" contenteditable="true"></div>
-        </div>
-
-        <div class="rodape-final">
-            <div class="total-container">
-                <div class="label-total">TOTAL R$</div>
-                <div class="valor-total" id="valorTotalGeral">0,00</div>
+            <div class="action-buttons">
+              <button
+                type="button"
+                id="duplicateReceipt"
+                class="button button-secondary"
+                title="Manter os dados e começar uma cópia"
+              >
+                Duplicar</button
+              ><button
+                type="button"
+                id="printReceipt"
+                class="button button-primary"
+              >
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="M6 9V3h12v6M6 18H4V9h16v9h-2M6 14h12v7H6z" />
+                  <path d="M17 12h1" />
+                </svg>
+                Imprimir / salvar PDF
+              </button>
             </div>
-        </div>
-
-    </div>
-
-    <script src="script.js"></script>
-</body>
+            <p class="pdf-hint">
+              Na janela de impressão, escolha “Salvar como PDF”.
+            </p>
+          </div>
+        </section>
+      </div>
+      <footer class="workspace-footer no-print">
+        Uma tarefa a menos. Um atendimento melhor.<span>Info Projekt</span>
+      </footer>
+    </main>
+    <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+  </body>
 </html>
